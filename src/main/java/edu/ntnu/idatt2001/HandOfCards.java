@@ -27,13 +27,19 @@ public class HandOfCards {
     return hand.stream()
       .filter(card -> card.getSuit() == hand.get(0).getSuit())
       .toList().size() == 5;
+
+    //return hand.stream().allMatch(card -> card.getSuit() == hand.get(0).getSuit());
   }
 
   public ArrayList<PlayingCard> checkHearts () {
-    List<PlayingCard> hearts = hand.stream()
+    //List<PlayingCard> hearts = hand.stream()
+    //  .filter(card -> card.getSuit() == 'H')
+    //  .toList();
+    //return (ArrayList<PlayingCard>) hearts;
+
+    return hand.stream()
       .filter(card -> card.getSuit() == 'H')
-      .toList();
-    return (ArrayList<PlayingCard>) hearts;
+      .collect(Collectors.toCollection(ArrayList::new));
   }
 
   //public boolean checkQueenOfSpades () {
@@ -45,5 +51,12 @@ public class HandOfCards {
   public boolean checkQueenOfSpades() {
     return hand.stream()
             .anyMatch(card -> card.getAsString().equals("S12"));
+  }
+
+  @Override
+  public String toString() {
+    return "HandOfCards{" +
+            "hand=" + hand +
+            '}';
   }
 }

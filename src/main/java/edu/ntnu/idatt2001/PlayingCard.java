@@ -20,7 +20,13 @@ public class PlayingCard {
    *             'H' for Heart, 'D' for Diamonds and 'C' for clubs
    * @param face The face value of the card, an integer between 1 and 13
    */
-  public PlayingCard(char suit, int face) {
+  public PlayingCard(char suit, int face/*, TODO String Image*/) {
+    if (suit != 'S' && suit != 'H' && suit != 'D' && suit != 'C') {
+      throw new IllegalArgumentException("Suit must be one of 'S', 'H', 'D' or 'C'");
+    }
+    if (face < 1 || face > 13) {
+      throw new IllegalArgumentException("Face must be an integer between 1 and 13");
+    }
     this.suit = suit;
     this.face = face;
   }
@@ -53,3 +59,5 @@ public class PlayingCard {
     return face;
   }
 }
+
+//TODO TOSTRING

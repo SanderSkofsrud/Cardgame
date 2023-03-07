@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2001;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class DeckOfCards {
@@ -22,5 +23,13 @@ public class DeckOfCards {
       hand.add(deck.remove(new Random().nextInt(deck.size())));
     }
     return hand;
+  }
+
+  @Override
+  public String toString() {
+    return "DeckOfCards{" +
+            "suits=" + Arrays.toString(suits) +
+            ", deck=" + deck +
+            '}';
   }
 }
