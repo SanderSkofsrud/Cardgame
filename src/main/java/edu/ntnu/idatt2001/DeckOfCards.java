@@ -1,35 +1,43 @@
 package edu.ntnu.idatt2001;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class DeckOfCards {
-  private final char[] suits = {'S', 'H', 'D', 'C'};
-  ArrayList<PlayingCard> deck = new ArrayList<>();
+  private static final ArrayList<PlayingCard> playingCards = new ArrayList<>();
 
-  public DeckOfCards() {
-    for (int i = 0; i < suits.length; i++) {
-      for (int j = 1; j <= 13; j++) {
-        PlayingCard card = new PlayingCard(suits[i], j);
-        deck.add(card);
-      }
+  public DeckOfCards(){
+    fillDeck();
+  }
+  void fillDeck(){
+    if (!playingCards.isEmpty()){
+      playingCards.clear();
+    }
+    for (int i = 1; i < 14; i++){
+      playingCards.add(new PlayingCard('S',i));
+      playingCards.add(new PlayingCard('H',i));
+      playingCards.add(new PlayingCard('D',i));
+      playingCards.add(new PlayingCard('C',i));
     }
   }
 
-  public ArrayList<PlayingCard> dealHand(int n) {
+  public ArrayList<PlayingCard> getPlayingCards() {
+    return playingCards;
+  }
+
+  public static ArrayList<PlayingCard> dealHand(int numberOfCards){
+    if (numberOfCards < 1 || numberOfCards > 52){
+      throw new IllegalArgumentException("numberOfCards has to be between 1 and 52");
+    }
     ArrayList<PlayingCard> hand = new ArrayList<>();
-    for (int i = 0; i < n; i++) {
-      hand.add(deck.remove(new Random().nextInt(deck.size())));
+    Random random = new Random();
+
+    for (int i = 0; i < numberOfCards; i++){
+      PlayingCard playingCard = playingCards.get(random.nextInt(playingCards.size()));
+      hand.add(new PlayingCard(playingCard.getSuit(), playingCard.getFace()));
+      playingCards.remove(playingCard);
     }
     return hand;
   }
-
-  @Override
-  public String toString() {
-    return "DeckOfCards{" +
-            "suits=" + Arrays.toString(suits) +
-            ", deck=" + deck +
-            '}';
-  }
 }
+
