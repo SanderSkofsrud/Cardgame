@@ -6,3 +6,24 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Editor-based REST Client requests
+/restRequests/
+# Default web server root directory
+/web/
+# PHPStorm
+/.idea/
+*.iml
+*.ipr
+*.iws
+# Cursive Clojure plugin
+/.idea-repl/
+# Mongo Explorer plugin
+/.idea/mongoSettings.xml
+# File-based project format
+*.iws
+# IntelliJ
+/out/
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+# sonarlint plugin
+/.idea/sonarlint/
