@@ -19,19 +19,61 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
+/**
+ * The type Card game.
+ */
 public class CardGame extends Application {
+  /**
+   * The Deck of cards.
+   */
   DeckOfCards deckOfCards = new DeckOfCards();
+  /**
+   * The Hand of cards.
+   */
   HandOfCards handOfCards = new HandOfCards(DeckOfCards.dealHand(5));
+  /**
+   * The Deal hand.
+   */
   Button dealHand = new Button("Deal hand");
+  /**
+   * The Shuffle.
+   */
   Button shuffle = new Button("Shuffle");
+  /**
+   * The Enter.
+   */
   Button enter = new Button("Enter");
+  /**
+   * The Check hand.
+   */
   Button checkHand = new Button("Check hand");
+  /**
+   * The Sum.
+   */
   Label sum = new Label("Sum of cards : " + handOfCards.getSumOfHand());
+  /**
+   * The Flush.
+   */
   Text flush = new Text("Flush : " + handOfCards.checkFlush());
+  /**
+   * The Hearts.
+   */
   Text hearts = new Text("Check hearts : " + handOfCards.checkHearts());
+  /**
+   * The Queen of spades.
+   */
   Text queenOfSpades = new Text("Check Queen of Spades : " + handOfCards.checkQueenOfSpades());
+  /**
+   * The Entrance.
+   */
   StackPane entrance = new StackPane();
+  /**
+   * The Main.
+   */
   StackPane main = new StackPane();
+  /**
+   * The Root.
+   */
   StackPane root = new StackPane();
 
   /**
@@ -55,7 +97,6 @@ public class CardGame extends Application {
     ImageView entranceImageView = new ImageView(entranceImage);
     Image enteranceOpenImage = new Image("/entranceOpen.png", true);
     ImageView entranceOpenImageView = new ImageView(enteranceOpenImage);
-    enter.setStyle("-fx-font-size: 15px; -fx-min-width: 115px; -fx-min-height: 40px; -fx-background-color: #9FB8AD; -fx-border-width: 2; -fx-background-radius: 5em;");
     entrance.getChildren().addAll(entranceOpenImageView, entranceImageView, enter);
     ScaleTransition stStart = new ScaleTransition(Duration.millis(3000), entranceOpenImageView);
     stStart.setByX(50f);
@@ -85,9 +126,6 @@ public class CardGame extends Application {
     HBox cards = new HBox();
     VBox results = new VBox();
     results.setAlignment(Pos.CENTER_LEFT);
-    dealHand.setStyle("-fx-font-size: 15px; -fx-min-width: 115px; -fx-min-height: 40px; -fx-background-color: #9FB8AD; -fx-border-width: 2; -fx-background-radius: 5em;");
-    shuffle.setStyle("-fx-font-size: 15px; -fx-min-width: 115px; -fx-min-height: 40px; -fx-background-color: #9FB8AD; -fx-border-width: 2; -fx-background-radius: 5em;");
-    checkHand.setStyle("-fx-font-size: 15px; -fx-min-width: 115px; -fx-min-height: 40px; -fx-background-color: #9FB8AD; -fx-border-width: 2; -fx-background-radius: 5em;");
     dealHand.setDisable(false);
     checkHand.setDisable(true);
     shuffle.setDisable(true);
@@ -96,7 +134,6 @@ public class CardGame extends Application {
       handOfCards.playerHand(5);
       cards.getChildren().add(getCards(5));
       results.getChildren().clear();
-      //results.getChildren().add(results());
       checkHand.setDisable(false);
     });
     shuffle.setOnAction(e -> {
@@ -115,6 +152,7 @@ public class CardGame extends Application {
     cards.setSpacing(60);
     main.getChildren().addAll(rectangle, hBox, cards, vBox, results, buttons);
     main.setBackground(new Background(imageView));
+    root.getStylesheets().add("/stylesheet.css");
     root.getChildren().addAll(entrance, main);
     entrance.setVisible(true);
     main.setVisible(false);
@@ -136,6 +174,11 @@ public class CardGame extends Application {
     primaryStage.show();
   }
 
+  /**
+   * Returns a rectangle that is used for a frame for the cards.
+   *
+   * @return The rectangle.
+   */
   public Rectangle rectangle() {
     Rectangle rectangle = new Rectangle(100, 150);
     rectangle.setFill(Color.TRANSPARENT);
@@ -146,6 +189,12 @@ public class CardGame extends Application {
     return rectangle;
   }
 
+  /**
+   * Returns the image corresponding to the card.
+   *
+   * @param card The card to be displayed.
+   * @return ImageView card image
+   */
   public ImageView getCardImage(String card) {
       Image image = new Image(card);
       ImageView imageView = new ImageView(image);
@@ -154,6 +203,12 @@ public class CardGame extends Application {
       return imageView;
   }
 
+  /**
+   * Creates a HBox with the cards in it.
+   *
+   * @param i the number of cards to be displayed
+   * @return HBox with the cards in it
+   */
   public HBox getCards(int i) {
     HBox hBox = new HBox(i);
     hBox.setSpacing(60);
@@ -169,13 +224,23 @@ public class CardGame extends Application {
       return hBox;
   }
 
- public VBox results() {
+  /**
+   * Creates a VBox with the results of the hand.
+   *
+   * @return VBox with the results of the hand
+   */
+  public VBox results() {
     VBox vBox = new VBox();
     vBox.setSpacing(25);
     vBox.setMinHeight(100);
     sum.setText("Sum of cards : " + handOfCards.getSumOfHand());
     flush.setText("Flush : " + handOfCards.checkFlush());
-    hearts.setText("Check hearts : " + handOfCards.checkHearts());
+    if (handOfCards.checkHearts().isEmpty()) {
+      hearts.setText("There are no hearts in your hand");
+      System.out.println("There are no hearts in your hand");
+    } else  {
+      hearts.setText("Check hearts : " + handOfCards.checkHearts().toString());
+    }
     queenOfSpades.setText("Check Queen of Spades : " + handOfCards.checkQueenOfSpades());
     vBox.getChildren().addAll(sum, flush, hearts, queenOfSpades);
     vBox.setAlignment(Pos.CENTER_LEFT);

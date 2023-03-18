@@ -3,12 +3,22 @@ package edu.ntnu.idatt2001;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The type Deck of cards.
+ */
 public class DeckOfCards {
   private static final ArrayList<PlayingCard> playingCards = new ArrayList<>();
 
+  /**
+   * Instantiates a new Deck of cards.
+   */
   public DeckOfCards(){
     fillDeck();
   }
+
+  /**
+   * Fill deck.
+   */
   void fillDeck(){
     if (!playingCards.isEmpty()){
       playingCards.clear();
@@ -21,10 +31,21 @@ public class DeckOfCards {
     }
   }
 
+  /**
+   * Gets playing cards.
+   *
+   * @return the playing cards
+   */
   public ArrayList<PlayingCard> getPlayingCards() {
     return playingCards;
   }
 
+  /**
+   * Deal hand array list.
+   *
+   * @param numberOfCards the number of cards
+   * @return the array list
+   */
   public static ArrayList<PlayingCard> dealHand(int numberOfCards){
     if (numberOfCards < 1 || numberOfCards > 52){
       throw new IllegalArgumentException("numberOfCards has to be between 1 and 52");
