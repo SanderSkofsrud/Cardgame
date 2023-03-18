@@ -25,6 +25,7 @@ public class CardGame extends Application {
   Button dealHand = new Button("Deal hand");
   Button shuffle = new Button("Shuffle");
   Button enter = new Button("Enter");
+  Button checkHand = new Button("Check hand");
   Label sum = new Label("Sum of cards : " + handOfCards.getSumOfHand());
   Text flush = new Text("Flush : " + handOfCards.checkFlush());
   Text hearts = new Text("Check hearts : " + handOfCards.checkHearts());
@@ -86,22 +87,28 @@ public class CardGame extends Application {
     results.setAlignment(Pos.CENTER_LEFT);
     dealHand.setStyle("-fx-font-size: 15px; -fx-min-width: 115px; -fx-min-height: 40px; -fx-background-color: #9FB8AD; -fx-border-width: 2; -fx-background-radius: 5em;");
     shuffle.setStyle("-fx-font-size: 15px; -fx-min-width: 115px; -fx-min-height: 40px; -fx-background-color: #9FB8AD; -fx-border-width: 2; -fx-background-radius: 5em;");
+    checkHand.setStyle("-fx-font-size: 15px; -fx-min-width: 115px; -fx-min-height: 40px; -fx-background-color: #9FB8AD; -fx-border-width: 2; -fx-background-radius: 5em;");
     dealHand.setDisable(false);
+    checkHand.setDisable(true);
     shuffle.setDisable(true);
     dealHand.setOnAction(e -> {
       cards.getChildren().clear();
       handOfCards.playerHand(5);
       cards.getChildren().add(getCards(5));
       results.getChildren().clear();
-      results.getChildren().add(results());
+      //results.getChildren().add(results());
+      checkHand.setDisable(false);
     });
     shuffle.setOnAction(e -> {
       deckOfCards.fillDeck();
       dealHand.setDisable(false);
       shuffle.setDisable(true);
     });
+    checkHand.setOnAction(e -> {
+      results.getChildren().add(results());
+    });
     HBox buttons = new HBox();
-    buttons.getChildren().addAll(dealHand, shuffle);
+    buttons.getChildren().addAll(dealHand, shuffle, checkHand);
     buttons.setSpacing(60);
     buttons.setAlignment(Pos.BOTTOM_CENTER);
     cards.setAlignment(Pos.CENTER);
